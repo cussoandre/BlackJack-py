@@ -1,10 +1,25 @@
 import random
 import copy
 
-class Cards:
+class Card:
+    values = {"2" : 2, "3" : 3, "4" : 4, "5" : 5, "6" : 6, "7" : 7, "8" : 8, "9" : 9, "10" : 10, "J" : 10, "Q" : 10, "K" : 10}
+    seeds = ["Quadri", "Cuori", "Picche", "Fiori"]
+    seed = 0
+    value = 0
+    seedName = ""
+    symbol = ""
+    
+    def __init__ (self, symbol, seed):
+        self.symbol = symbol
+        self.seed = seed
+        if symbol != "A":
+            self.value = values{symbol}
+        self.seedName = seeds[seed]
+
+class DecksOfCards:
     numOfDecks = 0
     decks = []
-    cardSet = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    cardSt = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
     values = {"2" : 2, "3" : 3, "4" : 4, "5" : 5, "6" : 6, "7" : 7, "8" : 8, "9" : 9, "10" : 10, "J" : 10, "Q" : 10, "K" : 10}
     oneDeck = [cardSet.copy(), cardSet.copy(), cardSet.copy(), cardSet.copy()]
     seeds = ["Quadri", "Cuori", "Picche", "Fiori"]
@@ -37,17 +52,43 @@ class Cards:
             if pickedCard != "PICKED":
                 self.decks[randDeck][randSeed][randCard] = "PICKED"
                 valid = True
-        if not cuteWay:
-            return [pickedCard, randSeed]
-        else:
-            return [pickedCard, self.seeds[randSeed]]
+        return new Card(pickedCard, seed)
 
-myCardSet = Cards(4)
+class Game:
+    cards = []
+    gameValue = 0
+    out = False
 
-n = int(input("Quante volte?"))       
+    def __init__(self, firstCard, secondCard):
+        cards.append(firstCard)
+        cards.append(secondCard)
+        self.checkForValues()
+        
+    def checkForValues(self):
+        gameValue = 0
+        
+        for e in cards:
+            if e.symbol != "A":
+                gameValue += e.value
+            else:
+                gameValue += 1
 
-for i in range (0, n):
-    print (myCardSet.decks)
-    print ("\n Pick a Card:\t", myCardSet.pick(True), "\n")
-    print (myCardSet.decks, "\n \n \n \n \n")
+        for e in cards:
+            if e.symbol == "A":
+                if gameValue + 10 <= 21:
+                    gamevalue += 10
+
+        if gameValue > 21:
+            out = True
+
+        self.gameValue = gameValue
+
+    def hit(self, newCard):
+        self.cards.append(copy.deepcopy(newCard))
+        self.checkForValues()
+
+    def splitGame(self):
+        
+myDecks = new DecksOfCards(2)
+player = new Game(myDecks.pick(), myDecks.pick())
         
